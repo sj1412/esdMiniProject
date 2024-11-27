@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+// commponent imports
+import LoginComponent from './components/LoginHandle/LoginComponent';
+import SalaryHistoryComponent from './components/SalaryComponent/SalaryHistoryComponent';
+import NavbarComponent from './components/NavbarComponent/NavbarComponent';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+	//using json.parse as i stored the object in string format in login component
+	const loginUser = JSON.parse(window.sessionStorage.getItem('loggedInUser'))
+
+	return (
+		<div className="App">
+			{
+				loginUser===null && <LoginComponent />
+			}
+			{
+				loginUser!==null && 
+				<>
+					<NavbarComponent/>
+					<SalaryHistoryComponent
+					{...loginUser}
+					/>
+				</>
+			}
+			</div>
+	);
 }
 
 export default App;
